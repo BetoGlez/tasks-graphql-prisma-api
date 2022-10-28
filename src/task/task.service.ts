@@ -1,27 +1,44 @@
 import { Injectable } from "@nestjs/common";
 
 import { CreateTaskInput, Task, UpdateTaskInput } from "../types/graphql-types";
-import { ID, Nullable } from "../types/generic-gql-types";
+import { PrismaService } from "../../prisma/prisma.service";
 
 @Injectable()
 export class TaskService {
-    public create(createTaskInput: CreateTaskInput): Task {
-        throw new Error("Pending for implementation");
+    public constructor(private prisma: PrismaService) {}
+
+    public create(createTaskInput: CreateTaskInput): Promise<Task> {
+        return this.prisma.task.create({
+            data: createTaskInput
+        });
     }
 
-    public findAll(): [Task] {
-        throw new Error("Pending for implementation");
+    public findAll(): Promise<Task[]> {
+        return this.prisma.task.findMany();
     }
 
-    public findOne(id: ID): Nullable<Task> {
-        throw new Error("Pending for implementation");
+    public async findOne(id: string): Promise<Task> {
+        return this.prisma.task.findUnique({
+            where: { id }
+        });
     }
 
-    public update(id: ID, updateTaskInput: UpdateTaskInput): Nullable<Task> {
-        throw new Error("Pending for implementation");
+    public async update(id: string, updateTaskInput: UpdateTaskInput): Promise<Task> {
+        let task = await this.findOne(id);
+
+        if (task) {
+            task = await this.prisma.task.update({
+                where: { id },
+                data: updateTaskInput
+            });
+        }
+
+        return task;
     }
 
-    public remove(id: ID): Nullable<Task> {
-        throw new Error("Pending for implementation");
+    public remove(id: string): Promise<Task> {
+        return this.prisma.task.delete({
+            where: { id }
+        });
     }
 }

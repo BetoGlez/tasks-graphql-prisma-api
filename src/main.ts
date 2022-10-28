@@ -4,8 +4,8 @@ import * as dotenv from "dotenv";
 // Preloads config before other imports to ensure env variables are available asap
 dotenv.config();
 
-import ApiConfig from "./api-constants";
 import { AppModule } from "./app.module";
+import ApiConfig from "./api-constants";
 
 const bootstrap = async (): Promise<void> => {
     const app = await NestFactory.create(AppModule);
