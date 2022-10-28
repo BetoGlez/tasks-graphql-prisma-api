@@ -5,7 +5,8 @@ import ApiConfig from "../api-constants";
 
 const definitionsFactory = new GraphQLDefinitionsFactory();
 definitionsFactory.generate({
-    typePaths: [ApiConfig.GQL_TYPE_PATHS],
+    typePaths: [ApiConfig.GQL_SCHEMA_PATHS],
     path: join(process.cwd(), ApiConfig.GQL_DEFINITIONS_PATH),
-    watch: true
+    watch: true,
+    outputAs: "class"
 });

@@ -9,9 +9,9 @@
         "prebuild": "rimraf dist",
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-        "start": "yarn gen:gql-types && nest start --watch",
+        "start": "yarn gen:gql-types & nest start --watch",
         "start:prod": "node dist/main",
-        "gen:gql-types": "ts-node generate-gql-typings",
+        "gen:gql-types": "ts-node src/utils/generate-gql-typings",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
         "test": "jest"
     },
@@ -47,6 +47,7 @@
         "supertest": "^6.1.3",
         "ts-jest": "28.0.5",
         "ts-loader": "^9.2.3",
+        "ts-morph": "^16.0.0",
         "ts-node": "^10.0.0",
         "tsconfig-paths": "4.0.0",
         "typescript": "^4.3.5"
