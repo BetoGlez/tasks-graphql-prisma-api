@@ -1,26 +1,27 @@
 import { Injectable } from "@nestjs/common";
 
-import { CreateTaskInput, UpdateTaskInput } from "../types/graphql-types";
+import { CreateTaskInput, Task, UpdateTaskInput } from "../types/graphql-types";
+import { ID, Nullable } from "../types/generic-gql-types";
 
 @Injectable()
 export class TaskService {
-    public create(createTaskInput: CreateTaskInput): string {
-        return "This action adds a new task";
+    public create(createTaskInput: CreateTaskInput): Task {
+        throw new Error("Pending for implementation");
     }
 
-    public findAll(): string {
-        return "This action returns all task";
+    public findAll(): [Task] {
+        throw new Error("Pending for implementation");
     }
 
-    public findOne(id: number): string {
-        return `This action returns a #${id} task`;
+    public findOne(id: ID): Nullable<Task> {
+        throw new Error("Pending for implementation");
     }
 
-    public update(id: number, updateTaskInput: UpdateTaskInput): string {
-        return `This action updates a #${id} task`;
+    public update(id: ID, updateTaskInput: UpdateTaskInput): Nullable<Task> {
+        throw new Error("Pending for implementation");
     }
 
-    public remove(id: number): string {
-        return `This action removes a #${id} task`;
+    public remove(id: ID): Nullable<Task> {
+        throw new Error("Pending for implementation");
     }
 }

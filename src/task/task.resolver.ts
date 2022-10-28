@@ -1,34 +1,35 @@
 import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
 
 import { TaskService } from "./task.service";
-import { CreateTaskInput, UpdateTaskInput } from "../types/graphql-types";
+import { CreateTaskInput, Task, UpdateTaskInput } from "../types/graphql-types";
+import { ID, Nullable } from "../types/generic-gql-types";
 
 @Resolver("Task")
 export class TaskResolver {
     public constructor(private readonly taskService: TaskService) {}
 
     @Mutation("createTask")
-    public create(@Args("createTaskInput") createTaskInput: CreateTaskInput): string {
+    public create(@Args("createTaskInput") createTaskInput: CreateTaskInput): Task {
         return this.taskService.create(createTaskInput);
     }
 
     @Query("tasks")
-    public findAll(): string {
+    public findAll(): [Task] {
         return this.taskService.findAll();
     }
 
     @Query("task")
-    public findOne(@Args("id") id: number): string {
+    public findOne(@Args("id") id: ID): Nullable<Task> {
         return this.taskService.findOne(id);
     }
 
     @Mutation("updateTask")
-    public update(@Args("updateTaskInput") updateTaskInput: UpdateTaskInput): string {
+    public update(@Args("updateTaskInput") updateTaskInput: UpdateTaskInput): Nullable<Task> {
         return this.taskService.update(updateTaskInput.id, updateTaskInput);
     }
 
     @Mutation("removeTask")
-    public remove(@Args("id") id: number): string {
+    public remove(@Args("id") id: ID): Nullable<Task> {
         return this.taskService.remove(id);
     }
 }

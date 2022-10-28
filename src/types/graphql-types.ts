@@ -14,13 +14,13 @@ export class CreateTaskInput {
 }
 
 export class UpdateTaskInput {
-    id: number;
+    id: string;
     name?: Nullable<string>;
     asignee?: Nullable<string>;
 }
 
 export class Task {
-    id: number;
+    id: string;
     name: string;
     asignee?: Nullable<string>;
 }
@@ -28,7 +28,7 @@ export class Task {
 export abstract class IQuery {
     abstract tasks(): Nullable<Task>[] | Promise<Nullable<Task>[]>;
 
-    abstract task(id: number): Nullable<Task> | Promise<Nullable<Task>>;
+    abstract task(id: string): Nullable<Task> | Promise<Nullable<Task>>;
 }
 
 export abstract class IMutation {
@@ -36,7 +36,7 @@ export abstract class IMutation {
 
     abstract updateTask(updateTaskInput: UpdateTaskInput): Nullable<Task> | Promise<Nullable<Task>>;
 
-    abstract removeTask(id: number): Nullable<Task> | Promise<Nullable<Task>>;
+    abstract removeTask(id: string): Nullable<Task> | Promise<Nullable<Task>>;
 }
 
 type Nullable<T> = T | null;

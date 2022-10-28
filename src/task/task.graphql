@@ -1,5 +1,5 @@
 type Task {
-    id: Int!
+    id: ID!
     name: String!
     asignee: String
 }
@@ -10,18 +10,18 @@ input CreateTaskInput {
 }
 
 input UpdateTaskInput {
-    id: Int!
+    id: ID!
     name: String
     asignee: String
 }
 
 type Query {
     tasks: [Task]!
-    task(id: Int!): Task
+    task(id: ID!): Task
 }
 
 type Mutation {
     createTask(createTaskInput: CreateTaskInput!): Task!
     updateTask(updateTaskInput: UpdateTaskInput!): Task
-    removeTask(id: Int!): Task
+    removeTask(id: ID!): Task
 }
