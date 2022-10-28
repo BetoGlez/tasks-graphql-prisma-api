@@ -12,6 +12,8 @@
         "start": "yarn gen:gql-types & nest start --watch",
         "start:prod": "node dist/main",
         "gen:gql-types": "ts-node src/utils/generate-gql-typings",
+        "db:up": "docker-compose -f database/docker-compose.yml up -d",
+        "db:down": "docker-compose -f database/docker-compose.yml down",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
         "test": "jest"
     },
@@ -21,9 +23,11 @@
         "@nestjs/core": "^9.0.0",
         "@nestjs/graphql": "^10.1.5",
         "@nestjs/platform-express": "^9.0.0",
+        "@prisma/client": "4.5.0",
         "apollo-server-express": "^3.10.3",
         "dotenv": "^16.0.3",
         "graphql": "^16.6.0",
+        "prisma": "^4.5.0",
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",
         "rxjs": "^7.2.0"
@@ -51,22 +55,5 @@
         "ts-node": "^10.0.0",
         "tsconfig-paths": "4.0.0",
         "typescript": "^4.3.5"
-    },
-    "jest": {
-        "moduleFileExtensions": [
-            "js",
-            "json",
-            "ts"
-        ],
-        "rootDir": "src",
-        "testRegex": ".*\\.spec\\.ts$",
-        "transform": {
-            "^.+\\.(t|j)s$": "ts-jest"
-        },
-        "collectCoverageFrom": [
-            "**/*.(t|j)s"
-        ],
-        "coverageDirectory": "../coverage",
-        "testEnvironment": "node"
     }
 }
