@@ -1,7 +1,9 @@
 import { Injectable } from "@nestjs/common";
+import { GraphQLError } from "graphql";
 
 import { CreateTaskInput, Task, UpdateTaskInput } from "../types/graphql-types";
 import { PrismaService } from "../../prisma/prisma.service";
+import ApiConfig from "../api-constants";
 
 @Injectable()
 export class TaskService {
@@ -24,21 +26,31 @@ export class TaskService {
     }
 
     public async update(id: string, updateTaskInput: UpdateTaskInput): Promise<Task> {
-        let task = await this.findOne(id);
+        let task: Task;
 
-        if (task) {
+        try {
             task = await this.prisma.task.update({
                 where: { id },
                 data: updateTaskInput
             });
+        } catch (err) {
+            throw new GraphQLError("Cannot update a task that doesn't exist", { extensions: { code: ApiConfig.ErrorCodes.NOT_FOUND }});
         }
 
         return task;
     }
 
-    public remove(id: string): Promise<Task> {
-        return this.prisma.task.delete({
-            where: { id }
-        });
+    public async remove(id: string): Promise<Task> {
+        let task: Task;
+
+        try {
+            task = await this.prisma.task.delete({
+                where: { id }
+            });
+        } catch (err) {
+            throw new GraphQLError("Cannot delete a task that doesn't exist", { extensions: { code: ApiConfig.ErrorCodes.NOT_FOUND }});
+        }
+
+        return task;
     }
 }
