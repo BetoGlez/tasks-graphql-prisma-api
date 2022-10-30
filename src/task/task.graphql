@@ -1,18 +1,18 @@
 type Task {
     id: ID!
     name: String!
-    asignee: String
+    asignee: User
 }
 
 input CreateTaskInput {
     name: String!
-    asignee: String
+    asigneeId: ID
 }
 
 input UpdateTaskInput {
     id: ID!
     name: String
-    asignee: String
+    asigneeId: ID
 }
 
 type Query {

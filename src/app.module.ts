@@ -5,6 +5,7 @@ import { join } from "path";
 
 import ApiConfig from "./api-constants";
 import { TaskModule } from "./task/task.module";
+import { UserModule } from "./user/user.module";
 
 @Module({
     imports: [
@@ -18,7 +19,8 @@ import { TaskModule } from "./task/task.module";
             debug: ApiConfig.NODE_ENV === ApiConfig.DEVELOPMENT_ENV,
             playground: ApiConfig.NODE_ENV === ApiConfig.DEVELOPMENT_ENV
         }),
-        TaskModule
+        TaskModule,
+        UserModule
     ]
 })
 export class AppModule {}

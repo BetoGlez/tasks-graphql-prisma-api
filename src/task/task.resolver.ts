@@ -1,7 +1,7 @@
-import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
+import { Resolver, Query, Mutation, Args, ResolveField, Parent } from "@nestjs/graphql";
 
 import { TaskService } from "./task.service";
-import { CreateTaskInput, Task, UpdateTaskInput } from "../types/graphql-types";
+import { CreateTaskInput, Task, UpdateTaskInput, User } from "../types/graphql-types";
 
 @Resolver("Task")
 export class TaskResolver {
@@ -20,6 +20,11 @@ export class TaskResolver {
     @Query("task")
     public findOne(@Args("id") id: string): Promise<Task> {
         return this.taskService.findOne(id);
+    }
+
+    @ResolveField()
+    public asignee(@Parent() task: Task): Promise<User> {
+        return this.taskService.resolveAsignee(task.id);
     }
 
     @Mutation("updateTask")

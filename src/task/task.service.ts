@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { GraphQLError } from "graphql";
 
-import { CreateTaskInput, Task, UpdateTaskInput } from "../types/graphql-types";
+import { CreateTaskInput, Task, UpdateTaskInput, User } from "../types/graphql-types";
 import { PrismaService } from "../../prisma/prisma.service";
 import ApiConfig from "../api-constants";
 
@@ -22,6 +22,12 @@ export class TaskService {
     public async findOne(id: string): Promise<Task> {
         return this.prisma.task.findUnique({
             where: { id }
+        });
+    }
+
+    public async resolveAsignee(taskId: string): Promise<User> {
+        return this.prisma.user.findFirst({
+            where: { tasks: { some: { id: { equals: taskId } } } }
         });
     }
 
