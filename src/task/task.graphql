@@ -15,8 +15,13 @@ input UpdateTaskInput {
     asigneeId: ID
 }
 
+input TasksInput {
+    pagination: PaginationInput
+    search: String
+}
+
 type Query {
-    tasks: [Task]!
+    tasks(tasksInput: TasksInput): [Task]!
     task(id: ID!): Task
 }
 

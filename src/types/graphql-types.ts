@@ -8,6 +8,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export class PaginationInput {
+    skip: number;
+    take: number;
+}
+
 export class CreateTaskInput {
     name: string;
     asigneeId?: Nullable<string>;
@@ -17,6 +22,11 @@ export class UpdateTaskInput {
     id: string;
     name?: Nullable<string>;
     asigneeId?: Nullable<string>;
+}
+
+export class TasksInput {
+    pagination?: Nullable<PaginationInput>;
+    search?: Nullable<string>;
 }
 
 export class CreateUserInput {
@@ -35,7 +45,7 @@ export class Task {
 }
 
 export abstract class IQuery {
-    abstract tasks(): Nullable<Task>[] | Promise<Nullable<Task>[]>;
+    abstract tasks(tasksInput?: Nullable<TasksInput>): Nullable<Task>[] | Promise<Nullable<Task>[]>;
 
     abstract task(id: string): Nullable<Task> | Promise<Nullable<Task>>;
 

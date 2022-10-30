@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { GraphQLError } from "graphql";
 
-import { CreateTaskInput, Task, UpdateTaskInput, User } from "../types/graphql-types";
+import { CreateTaskInput, Task, TasksInput, UpdateTaskInput, User } from "../types/graphql-types";
 import { PrismaService } from "../../prisma/prisma.service";
 import ApiConfig from "../api-constants";
 
@@ -15,8 +15,14 @@ export class TaskService {
         });
     }
 
-    public findAll(): Promise<Task[]> {
-        return this.prisma.task.findMany();
+    public findAll(tasksInput?: TasksInput): Promise<Task[]> {
+        return this.prisma.task.findMany({
+            skip: tasksInput?.pagination?.skip,
+            take: tasksInput?.pagination?.take,
+            where: {
+                name: { contains: tasksInput?.search }
+            }
+        });
     }
 
     public async findOne(id: string): Promise<Task> {
