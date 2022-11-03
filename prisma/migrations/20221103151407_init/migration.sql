@@ -1,12 +1,11 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "Task" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "asigneeId" TEXT,
 
-  - You are about to drop the column `asignee` on the `Task` table. All the data in the column will be lost.
-
-*/
--- AlterTable
-ALTER TABLE "Task" DROP COLUMN "asignee",
-ADD COLUMN     "asigneeId" TEXT;
+    CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "User" (
